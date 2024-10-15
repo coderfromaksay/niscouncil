@@ -1,0 +1,189 @@
+$svg-color: #fff;
+
+.header{
+  height: 1050px!important;
+}
+
+.background-img{
+  display: block;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/nis.png");
+  background-size: cover;
+  background-position: center;
+}
+
+
+.header-container{
+  height: 8vh;
+}
+
+.logo{
+  height: 4vh!important;
+  width: 200%!important;
+  max-width: 200px!important;
+  max-height: 37px!important;
+  //min-width: 172px;
+  //min-height: 31px;
+;
+}
+
+
+.text{
+  font-family: "Helvetica Neue";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--Headlines, #393939);
+}
+
+.text-lighter{
+  font-family: "Helvetica Neue";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--Headlines, #393939);
+}
+
+
+.header-ul{
+  list-style: none;
+  align-items: center;
+  padding-top: 20px;
+  padding-left: 0!important;
+  position: relative;
+  justify-self: center;
+
+  li{
+    display: inline-block;
+    margin-left: 100px;
+  }
+
+  li:first-child{
+    margin-left: 0px;
+  }
+
+}
+
+.header-ul a{
+  text-decoration: none!important;
+  color: #000!important;
+
+  &::after{
+    content: '';
+    width: 0%;
+    display: block;
+    background: #000;
+    height: 2px;
+    transition: all 0.4s ease;
+  }
+
+
+  &:hover::after{
+    width: 100%;
+  }
+}
+
+
+.button-header{
+  border-radius: 30px!important;
+  padding: 10px 20px !important;
+  background: #000!important;
+  color: white!important;
+  font-size: 17px!important;
+
+  &:hover{
+    background: #fff!important;
+    color: #000!important;
+    border-bottom-width: 4px;
+    & svg path {
+      fill: #000000;
+    }
+  }
+
+  &:active{
+    border-bottom-width: 1px;
+  }
+}
+
+
+  .background-gradient{
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(180deg, #CBD9F4 23.4%, #FFF 100%);
+  }
+
+footer{
+  width: 100%;
+  height: 250px;
+}
+
+.span{
+  height: 100px;
+}
+
+.footer-ul{
+  height: 100%;
+  list-style: none;
+  justify-self: center;
+
+  li{
+    display: block;
+    margin-top: 24.5px;
+  }
+  
+  & .first-li{
+    margin-top: 0!important;
+  }
+}
+
+
+
+.instagram-logo{
+  height: 30px!important;
+  width: 30px!important;
+  padding: 0!important;
+
+}
+
+.github-logo{
+  height: 30px!important;
+  width: 30px!important;
+  padding: 0!important;
+}
+
+a.text-mid{
+  font-weight: 500!important;
+  padding-left: 0!important;
+}
+
+.footer-ul a{
+  padding-top: 4px!important;
+  padding-bottom: 4px!important;
+  padding-left: 7px!important;
+  padding-right: 7px!important;
+  text-decoration: none!important;
+  color: #000000 !important;
+  box-shadow: inset 0 0 0 0 rgb(159,195,252);
+  transition: all .4s ease!important;
+
+  &:hover{
+    color: #000!important;
+    box-shadow: inset 200px 0 0 0 rgb(159,195,252);
+  }
+}
+
+.social-medias a{
+  text-decoration: none!important;
+  color: #000!important;
+  transition: all 0.25s ease!important;
+
+  &:hover{
+    font-size: 20px;
+    font-weight: 1000!important;
+  }
+}
+

@@ -12,40 +12,40 @@ const gutil = require('gulp-util');
 
 
 gulp.task('cleanjs',async function () {
-  return gulp.src('ratingPage/app/js/*.js')
+  return gulp.src('homePage/app/js/*.js')
     .pipe(cleanjs().on('error', gutil.log))
-    .pipe(gulp.dest('ratingPage/public/js/'));
+    .pipe(gulp.dest('homePage/public/js/'));
 });
 
 gulp.task('prefix', function () {
-  return gulp.src('ratingPage/app/styles/css/*.css')
+  return gulp.src('homePage/app/styles/css/*.css')
   .pipe(autoprefix({
     overrideBrowserslist: ['last 20 versions'],
     cascade: false
   }))
   .pipe(cleancss())
   .pipe(rename({suffix:'.min'}))
-  .pipe(gulp.dest('ratingPage/public/css/'));
+  .pipe(gulp.dest('homePage/public/css/'));
 });
 
 gulp.task('bsync',function () {
   bsync.init({
-    server:'ratingPage/public'
+    server:'homePage/public'
   });
-  bsync.watch('ratingPage/public/**/*.*').on('change',bsync.reload);
+  bsync.watch('homePage/public/**/*.*').on('change',bsync.reload);
 });
 
 gulp.task('deljs', function () {
-  return (del('ratingPage/public/js/*.js'));
+  return (del('homePage/public/js/*.js'));
 });
 
 gulp.task('delcss', function () {
-  return del('ratingPage/app/styles/css/*.*');
-  del('ratingPage/public/css/style.min.css');
+  return del('homePage/app/styles/css/*.*');
+  del('homePage/public/css/style.min.css');
 });
 
 gulp.task('sassToCss', function () {
-  return gulp.src('ratingPage/app/styles/scss/*.scss')
+  return gulp.src('homePage/app/styles/scss/*.scss')
   .pipe(sass({
     errorLogToConsole:true
   }))
@@ -55,13 +55,13 @@ gulp.task('sassToCss', function () {
        })
      )
   .pipe(rename('style.css'))
-  .pipe(gulp.dest('ratingPage/app/styles/css/'));
+  .pipe(gulp.dest('homePage/app/styles/css/'));
 });
 
 gulp.task('watchfiles', function () {
-  gulp.watch('ratingPage/app/styles/scss/*.scss', gulp.series('sassToCss'));//series- делать таски один за одним
-  gulp.watch('ratingPage/app/styles/css/*.css', gulp.series('prefix'));
-  gulp.watch('ratingPage/app/js/*.*', gulp.series('cleanjs'));
+  gulp.watch('homePage/app/styles/scss/*.scss', gulp.series('sassToCss'));//series- делать таски один за одним
+  gulp.watch('homePage/app/styles/css/*.css', gulp.series('prefix'));
+  gulp.watch('homePage/app/js/*.*', gulp.series('cleanjs'));
 });
 
 // gulp.task('default',gulp.parallel('watchfiles', 'bsync'));//parallel-делает таски паралельно
