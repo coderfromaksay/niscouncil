@@ -22,10 +22,10 @@ $svg-color: #fff;
 }
 
 .logo{
-  height: 4vh!important;
-  width: 200%!important;
-  max-width: 200px!important;
-  max-height: 37px!important;
+  height: 43px!important;
+  width: 250px!important;
+  //max-width: 250px!important;
+  //max-height: 43px!important;
   //min-width: 172px;
   //min-height: 31px;
 ;
@@ -44,7 +44,15 @@ $svg-color: #fff;
   font-family: "Helvetica Neue";
   font-size: 17px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
+  color: var(--Headlines, #393939);
+}
+
+.text-mid{
+  font-family: "Helvetica Neue";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
   color: var(--Headlines, #393939);
 }
 
@@ -109,6 +117,96 @@ $svg-color: #fff;
   }
 }
 
+.header-heading{
+  margin-top: 100px;
+}
+
+.header-heading-text{
+  color: #000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  /* Headline 1 */
+  font-family: "Helvetica Neue";
+  font-size: 110px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 96px; /* 110.345% */
+  letter-spacing: -3.48px;
+}
+
+.little-text-under-heading{
+  margin-top: 100px;
+
+  & .text-mid{
+    font-size: 23px!important;
+    font-weight: 400;
+  }
+}
+
+.buttons-under-heading{
+  margin-top: 150px;
+}
+
+.btn-1{
+  background: #000000;
+  color: #ffffff!important;
+  border-style: none;
+  padding: 10px 23px!important;
+  border-radius: 25px!important;
+  text-align: center;
+
+  transition: all 0.2s ease;
+  &:hover {
+    color: #000000!important;
+    background: #FFFFFF!important;
+    & svg path {
+      fill: #000000;
+      transition: 0.2s ease;
+    }
+  }
+
+  &:active{
+    background: #7d7979!important;
+  }
+}
+
+.btn-2 {
+  background: none;
+  color: #000000!important;
+  border-style: none;
+  padding: 10px 23px!important;
+  border-radius: 25px!important;
+  text-align: center;
+
+
+  transition: all 0.2s ease;
+  &:hover {
+    color: #FFFFFF!important;
+    & svg path {
+      fill: #FFFFFF;
+      transition: 0.2s ease;
+    }
+  }
+
+  &:active{
+    color: #7d7979!important;
+    & svg path {
+      fill: #7d7979;
+      transition: 0.2s ease;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
   .background-gradient{
     width: 100%;
@@ -139,8 +237,6 @@ footer{
     margin-top: 0!important;
   }
 }
-
-
 
 .instagram-logo{
   height: 30px!important;
