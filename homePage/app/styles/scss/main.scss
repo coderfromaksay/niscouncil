@@ -1,4 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Helvetica");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: normal;
+}
 $svg-color: #fff;
+a{
+  text-decoration: none!important;
+}
 
 .header{
   height: 1050px!important;
@@ -102,6 +113,7 @@ $svg-color: #fff;
   background: #000!important;
   color: white!important;
   font-size: 17px!important;
+  transition: all 0.2s ease;
 
   &:hover{
     background: #fff!important;
@@ -196,6 +208,7 @@ $svg-color: #fff;
       transition: 0.2s ease;
     }
   }
+
 }
 
 
