@@ -65,4 +65,4 @@ gulp.task('watchfiles', function () {
 
 // gulp.task('default',gulp.parallel('watchfiles', 'bsync'));//parallel-делает таски паралельно
 
-gulp.task('default', gulp.series(gulp.parallel('delcss','deljs'),gulp.parallel('watchfiles')));//parallel-делает таски паралельно
+gulp.task('default', gulp.series(gulp.parallel('delcss','deljs'),gulp.series('watchfiles')));//parallel-делает таски паралельно
