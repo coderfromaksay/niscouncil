@@ -9,11 +9,6 @@ const rename = require('gulp-rename');
 const notify = require('gulp-notify');
 const gutil = require('gulp-util');
 
-exports.build = series(
-  styles,
-  scripts,
-  pages
-)
 
 gulp.task('cleanjs',async function () {
   return gulp.src('homePage/app/js/*.js')
