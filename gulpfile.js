@@ -9,13 +9,6 @@ const rename = require('gulp-rename');
 const notify = require('gulp-notify');
 const gutil = require('gulp-util');
 
-var deploy = require('gulp-gh-pages');
-
-gulp.task('deploy', function () {
-  return gulp.src("./homePage/public/**/*")
-    .pipe(deploy())
-});
-
 gulp.task('cleanjs',async function () {
   return gulp.src('homePage/app/js/*.js')
     .pipe(cleanjs().on('error', gutil.log))
