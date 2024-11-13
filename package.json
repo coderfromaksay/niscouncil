@@ -12,6 +12,18 @@
     "council",
     "gulp"
   ],
+  "builds": [
+    {
+      "src": "homePage/public/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/homePage/public/$1"
+    }
+  ],
   "author": "Miras",
   "license": "ISC",
   "devDependencies": {
