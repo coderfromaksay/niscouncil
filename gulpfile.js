@@ -9,7 +9,12 @@ const rename = require('gulp-rename');
 const notify = require('gulp-notify');
 const gutil = require('gulp-util');
 
+var deploy = require('gulp-gh-pages');
 
+gulp.task('deploy', function () {
+  return gulp.src("./homePage/public/**/*")
+    .pipe(deploy())
+});
 
 gulp.task('cleanjs',async function () {
   return gulp.src('homePage/app/js/*.js')
@@ -65,5 +70,5 @@ gulp.task('watchfiles', function () {
 });
 
 // gulp.task('default',gulp.parallel('watchfiles', 'bsync'));//parallel-делает таски паралельно
-
-gulp.task('default', gulp.series(gulp.parallel('delcss','deljs'),gulp.parallel('watchfiles', 'bsync')));//parallel-делает таски паралельно
+gulp.task('default', gulp.series(gulp.parallel('delcss','deljs'),gulp.parallel('watchfiles','bsync')));//parallel-делает таски паралельно
+gulp.task('build', gulp.series(gulp.parallel('delcss','deljs')));
