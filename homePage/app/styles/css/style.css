@@ -10,8 +10,7 @@
 }
 
 .navbar-togler {
-  border: 1px solid #babbbc !important;
-  border-radius: 10px !important;
+  border: 0px !important;
 }
 
 @media (max-width: 575px) {
@@ -23,8 +22,11 @@
     font-size: 70px !important;
     font-style: normal;
     font-weight: 700;
-    line-height: 60px !important; /* 110.345% */
+    line-height: 50px !important; /* 110.345% */
     letter-spacing: -3.48px;
+  }
+  .st {
+    margin-right: 0px;
   }
   .background-img {
     display: block;
@@ -38,10 +40,14 @@
     background-position: center;
   }
   .logo {
-    width: 180px !important;
-    height: 37px !important;
+    width: 200px !important;
+    height: 35px !important;
   }
 }
+.st {
+  margin-right: 25px;
+}
+
 a {
   text-decoration: none !important;
 }
@@ -67,8 +73,8 @@ a {
 }
 
 .logo {
-  height: 43px;
-  width: 250px;
+  height: 40px;
+  width: 260px;
 }
 
 .text {
