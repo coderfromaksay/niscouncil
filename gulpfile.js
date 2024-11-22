@@ -9,48 +9,48 @@ const rename = require('gulp-rename');
 const notify = require('gulp-notify');
 const gutil = require('gulp-util');
 
-var deploy = require('gulp-gh-pages');
-
-gulp.task('deploy', function () {
-  return gulp.src("./homePage/public/**/*")
-    .pipe(deploy())
-});
+// var deploy = require('gulp-gh-pages');
+//
+// gulp.task('deploy', function () {
+//   return gulp.src("./homePage/public/**/*")
+//     .pipe(deploy())
+// });
 
 gulp.task('cleanjs',async function () {
-  return gulp.src('homePage/app/js/*.js')
+  return gulp.src('teamPage/app/js/*.js')
     .pipe(cleanjs().on('error', gutil.log))
-    .pipe(gulp.dest('homePage/public/js/'));
+    .pipe(gulp.dest('teamPage/public/js/'));
 });
 
 gulp.task('prefix', function () {
-  return gulp.src('homePage/app/styles/css/*.css')
+  return gulp.src('teamPage/app/styles/css/*.css')
   .pipe(autoprefix({
     overrideBrowserslist: ['last 20 versions'],
     cascade: false
   }))
   .pipe(cleancss())
   .pipe(rename({suffix:'.min'}))
-  .pipe(gulp.dest('homePage/public/css/'));
+  .pipe(gulp.dest('teamPage/public/css/'));
 });
 
 gulp.task('bsync',function () {
   bsync.init({
-    server:'homePage/public'
+    server:'teamPage/public'
   });
-  bsync.watch('homePage/public/**/*.*').on('change',bsync.reload);
+  bsync.watch('teamPage/public/**/*.*').on('change',bsync.reload);
 });
 
 gulp.task('deljs', function () {
-  return (del('homePage/public/js/*.js'));
+  return (del('teamPage/public/js/*.js'));
 });
 
 gulp.task('delcss', function () {
-  return del('homePage/app/styles/css/*.*');
-  del('homePage/public/css/style.min.css');
+  return del('teamPage/app/styles/css/*.*');
+  del('teamPage/public/css/style.min.css');
 });
 
 gulp.task('sassToCss', function () {
-  return gulp.src('homePage/app/styles/scss/*.scss')
+  return gulp.src('teamPage/app/styles/scss/*.scss')
   .pipe(sass({
     errorLogToConsole:true
   }))
@@ -60,13 +60,13 @@ gulp.task('sassToCss', function () {
        })
      )
   .pipe(rename('style.css'))
-  .pipe(gulp.dest('homePage/app/styles/css/'));
+  .pipe(gulp.dest('teamPage/app/styles/css/'));
 });
 
 gulp.task('watchfiles', function () {
-  gulp.watch('homePage/app/styles/scss/*.scss', gulp.series('sassToCss'));//series- делать таски один за одним
-  gulp.watch('homePage/app/styles/css/*.css', gulp.series('prefix'));
-  gulp.watch('homePage/app/js/*.*', gulp.series('cleanjs'));
+  gulp.watch('teamPage/app/styles/scss/*.scss', gulp.series('sassToCss'));//series- делать таски один за одним
+  gulp.watch('teamPage/app/styles/css/*.css', gulp.series('prefix'));
+  gulp.watch('teamPage/app/js/*.*', gulp.series('cleanjs'));
 });
 
 // gulp.task('default',gulp.parallel('watchfiles', 'bsync'));//parallel-делает таски паралельно
