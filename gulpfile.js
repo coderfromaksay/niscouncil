@@ -100,5 +100,5 @@ gulp.task('default', gulp.series(
 // Build task
 gulp.task('build', gulp.series(
     gulp.parallel('clean:css', 'clean:js', 'clean:html'),
-    gulp.parallel('sass', 'js', 'html')
+    gulp.parallel('sass', 'js', 'htm')
 ));
