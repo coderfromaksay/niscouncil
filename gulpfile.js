@@ -53,6 +53,7 @@ gulp.task('sass', function () {
       .pipe(cleancss())
       .pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest(paths.dist.css))
+      .pipe(browserSync.stream());
 });
 
 // JavaScript Minification
@@ -63,12 +64,14 @@ gulp.task('js', function () {
         message: '<%= error.message %>',
       })))
       .pipe(gulp.dest(paths.dist.js))
+      .pipe(browserSync.stream());
 });
 
 // HTML Copy
 gulp.task('html', function () {
   return gulp.src(paths.src.html)
       .pipe(gulp.dest(paths.dist.html))
+      .pipe(browserSync.stream());
 });
 
 // BrowserSync
@@ -82,9 +85,6 @@ gulp.task('browserSync', function () {
     startPath: 'home.html',
   });
   browserSync.watch('dist/**/*.*').on('change',browserSync.reload);
-});
-
-gulp.task('watchfiles', function () {
   gulp.watch(paths.src.scss, gulp.series('sass'));
   gulp.watch(paths.src.js, gulp.series('js'));
   gulp.watch(paths.src.html, gulp.series('html'));
@@ -94,7 +94,7 @@ gulp.task('watchfiles', function () {
 gulp.task('default', gulp.series(
     gulp.parallel('clean:css', 'clean:js', 'clean:html'),
     gulp.parallel('sass', 'js', 'html'),
-    gulp.parallel('watchfiles', 'browserSync')
+    'browserSync'
 ));
 
 // Build task
