@@ -1,74 +1,104 @@
 const gulp = require('gulp');
 const cleancss = require('gulp-clean-css');
-const cleanjs = require('gulp-uglify');
-const autoprefix = require('gulp-autoprefixer');
+const uglify = require('gulp-uglify');
+const autoprefixer = require('gulp-autoprefixer');
 const del = require('del');
-const bsync = require('browser-sync').create();
+const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass')(require('sass'));
 const rename = require('gulp-rename');
 const notify = require('gulp-notify');
-const gutil = require('gulp-util');
 
-// var deploy = require('gulp-gh-pages');
-//
-// gulp.task('deploy', function () {
-//   return gulp.src("./homePage/public/**/*")
-//     .pipe(deploy())
-// });
+// Paths
+const paths = {
+  src: {
+    scss: 'src/assets/styles/scss/**/*.scss',
+    css: 'src/assets/styles/css/',
+    js: 'src/assets/scripts/**/*.js',
+    html: 'src/pages/**/*.html',
+    img: 'src/assets/img/**/*',
+  },
+  dist: {
+    css: 'dist/css/',
+    js: 'dist/js/',
+    html: 'dist/',
+    img: 'dist/img/',
+  },
+};
 
-gulp.task('cleanjs',async function () {
-  return gulp.src('teamPage/app/js/*.js')
-    .pipe(cleanjs().on('error', gutil.log))
-    .pipe(gulp.dest('teamPage/public/js/'));
+// Clean tasks
+gulp.task('clean:css', function () {
+  return del([`${paths.src.css}*.*`, `${paths.dist.css}*.*`]);
 });
 
-gulp.task('prefix', function () {
-  return gulp.src('teamPage/app/styles/css/*.css')
-  .pipe(autoprefix({
-    overrideBrowserslist: ['last 20 versions'],
-    cascade: false
-  }))
-  .pipe(cleancss())
-  .pipe(rename({suffix:'.min'}))
-  .pipe(gulp.dest('teamPage/public/css/'));
+gulp.task('clean:js', function () {
+  return del([`${paths.dist.js}*.js`]);
 });
 
-gulp.task('bsync',function () {
-  bsync.init({
-    server:'teamPage/public'
+gulp.task('clean:html', function () {
+  return del([`${paths.dist.html}*.html`]);
+});
+
+// SCSS to CSS with Autoprefixer
+gulp.task('sass', function () {
+  return gulp.src(paths.src.scss)
+      .pipe(sass({ outputStyle: 'expanded' }).on('error', notify.onError({
+        title: 'SASS Compilation Error',
+        message: '<%= error.message %>',
+      })))
+      .pipe(autoprefixer({
+        overrideBrowserslist: ['last 2 versions'],
+        cascade: false,
+      }))
+      .pipe(gulp.dest(paths.src.css))
+      .pipe(cleancss())
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(gulp.dest(paths.dist.css))
+      .pipe(browserSync.stream());
+});
+
+// JavaScript Minification
+gulp.task('js', function () {
+  return gulp.src(paths.src.js)
+      .pipe(uglify().on('error', notify.onError({
+        title: 'JS Minification Error',
+        message: '<%= error.message %>',
+      })))
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe(browserSync.stream());
+});
+
+// HTML Copy
+gulp.task('html', function () {
+  return gulp.src(paths.src.html)
+      .pipe(gulp.dest(paths.dist.html))
+      .pipe(browserSync.stream());
+});
+
+// BrowserSync
+gulp.task('browserSync', function () {
+  browserSync.init({
+    server: {
+      baseDir: 'dist',
+    },
+    port: 3000,
+    notify: false,
+    startPath: 'home.html',
   });
-  bsync.watch('teamPage/public/**/*.*').on('change',bsync.reload);
+  browserSync.watch('dist/**/*.*').on('change',browserSync.reload);
+  gulp.watch(paths.src.scss, gulp.series('sass'));
+  gulp.watch(paths.src.js, gulp.series('js'));
+  gulp.watch(paths.src.html, gulp.series('html'));
 });
 
-gulp.task('deljs', function () {
-  return (del('teamPage/public/js/*.js'));
-});
+// Default task
+gulp.task('default', gulp.series(
+    gulp.parallel('clean:css', 'clean:js', 'clean:html'),
+    gulp.parallel('sass', 'js', 'html'),
+    'browserSync'
+));
 
-gulp.task('delcss', function () {
-  return del('teamPage/app/styles/css/*.*');
-  del('teamPage/public/css/style.min.css');
-});
-
-gulp.task('sassToCss', function () {
-  return gulp.src('teamPage/app/styles/scss/*.scss')
-  .pipe(sass({
-    errorLogToConsole:true
-  }))
-  .on( 'error', notify.onError({
-           title: 'Sass Compilation Failed',
-           message: '<%= error.message %>'
-       })
-     )
-  .pipe(rename('style.css'))
-  .pipe(gulp.dest('teamPage/app/styles/css/'));
-});
-
-gulp.task('watchfiles', function () {
-  gulp.watch('teamPage/app/styles/scss/*.scss', gulp.series('sassToCss'));//series- делать таски один за одним
-  gulp.watch('teamPage/app/styles/css/*.css', gulp.series('prefix'));
-  gulp.watch('teamPage/app/js/*.*', gulp.series('cleanjs'));
-});
-
-// gulp.task('default',gulp.parallel('watchfiles', 'bsync'));//parallel-делает таски паралельно
-gulp.task('default', gulp.series(gulp.parallel('delcss','deljs'),gulp.parallel('watchfiles','bsync')));//parallel-делает таски паралельно
-gulp.task('build', gulp.series(gulp.parallel('delcss','deljs')));
+// Build task
+gulp.task('build', gulp.series(
+    gulp.parallel('clean:css', 'clean:js', 'clean:html'),
+    gulp.parallel('sass', 'js', 'html')
+));
