@@ -3,6 +3,104 @@
 //  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 //}
 
+#dauka1, #dauka2 {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#nadir{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#miras1, #miras2 {
+   background-image: url("../img/nis.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#tulegenov-alikhan{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#serikov-alikhan{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#yernar{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#shamil{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#aser{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#ramazan{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#aldiyar{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#serik-alikhan1, #serik-alikhan2{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#gibrat{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#serikov-adilkhan{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#nargiza{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#iliyas{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#anel{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#anzhela{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#sabina{
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+
+
+
+
+
 .navbar-togler-icon {
   display: inline-block;
   width: 1.5em;
@@ -28,110 +126,110 @@
 }
 
 
-  $svg-color: #fff;
-  a{
-    text-decoration: none!important;
+$svg-color: #fff;
+a{
+  text-decoration: none!important;
+}
+
+.header-container{
+  height: 70px!important;
+}
+
+.logo{
+  height: 40px;
+  width: 260px;
+  //max-width: 250px!important;
+  //max-height: 43px!important;
+  //min-width: 172px;
+  //min-height: 31px;
+}
+
+
+.text{
+  font-family: "Helvetica Neue";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--Headlines, #393939);
+}
+
+.text-lighter{
+  font-family: "Helvetica Neue";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 300;
+  color: var(--Headlines, #393939);
+}
+
+.text-mid{
+  font-family: "Helvetica Neue";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--Headlines, #393939);
+}
+
+
+.header-ul{
+  list-style: none;
+  align-items: center;
+  padding-top: 20px;
+  padding-left: 0!important;
+  position: relative;
+  justify-self: center;
+
+  li{
+    display: inline-block;
+    margin-left: 100px;
   }
 
-  .header-container{
-    height: 70px!important;
+  li:first-child{
+    margin-left: 0px;
   }
 
-  .logo{
-    height: 40px;
-    width: 260px;
-    //max-width: 250px!important;
-    //max-height: 43px!important;
-    //min-width: 172px;
-    //min-height: 31px;
-  }
+}
 
+.header-ul a{
+  text-decoration: none!important;
+  color: #000!important;
 
-  .text{
-    font-family: "Helvetica Neue";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    color: var(--Headlines, #393939);
-  }
-
-  .text-lighter{
-    font-family: "Helvetica Neue";
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 300;
-    color: var(--Headlines, #393939);
-  }
-
-  .text-mid{
-    font-family: "Helvetica Neue";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    color: var(--Headlines, #393939);
+  &::after{
+    content: '';
+    width: 0%;
+    display: block;
+    background: #000;
+    height: 2px;
+    transition: all 0.4s ease;
   }
 
 
-  .header-ul{
-    list-style: none;
-    align-items: center;
-    padding-top: 20px;
-    padding-left: 0!important;
-    position: relative;
-    justify-self: center;
-
-    li{
-      display: inline-block;
-      margin-left: 100px;
-    }
-
-    li:first-child{
-      margin-left: 0px;
-    }
-
+  &:hover::after{
+    width: 100%;
   }
+}
 
-  .header-ul a{
-    text-decoration: none!important;
+
+.button-header{
+  border-radius: 30px!important;
+  padding: 10px 20px !important;
+  background: #000!important;
+  color: white!important;
+  font-size: 17px!important;
+  transition: all 0.2s ease!important;
+
+  &:hover{
+    background: #fff!important;
     color: #000!important;
-
-    &::after{
-      content: '';
-      width: 0%;
-      display: block;
-      background: #000;
-      height: 2px;
-      transition: all 0.4s ease;
-    }
-
-
-    &:hover::after{
-      width: 100%;
+    border-bottom-width: 4px!important;
+    & svg path {
+      fill: #000000;
     }
   }
 
-
-  .button-header{
-    border-radius: 30px!important;
-    padding: 10px 20px !important;
-    background: #000!important;
-    color: white!important;
-    font-size: 17px!important;
-    transition: all 0.2s ease!important;
-
-    &:hover{
-      background: #fff!important;
-      color: #000!important;
-      border-bottom-width: 4px!important;
-      & svg path {
-        fill: #000000;
-      }
-    }
-
-    &:active{
-      border-bottom-width: 1px;
-    }
+  &:active{
+    border-bottom-width: 1px;
   }
+}
 
 .navbar-togler-icon {
   display: inline-block;
@@ -173,7 +271,7 @@
   }
 }
 
-  //////////////////////////////////////////////////  //////////////////////////////////////////////////  //////////////////////////////////////////////////
+//////////////////////////////////////////////////  //////////////////////////////////////////////////  //////////////////////////////////////////////////
 
 main{
 }
@@ -204,7 +302,7 @@ main{
 .avatarl {
   width: 180px;
   height: 220px;
-  background: #e5e5e5;
+  //background: #e5e5e5;
   border-radius: 24px;
   margin-bottom: 1rem;
 }
@@ -321,83 +419,86 @@ main{
 }
 
 
-  //////////////////////////////////////////////////  //////////////////////////////////////////////////  //////////////////////////////////////////////////
-  footer{
-    width: 100%;
+//////////////////////////////////////////////////  //////////////////////////////////////////////////  //////////////////////////////////////////////////
+footer{
+  width: 100%;
+}
+
+.span{
+  height: 100px;
+}
+
+.footer-ul{
+  height: 100%;
+  list-style: none;
+  justify-self: center;
+
+  li{
+    display: block;
+    margin-top: 24.5px;
   }
 
-  .span{
-    height: 100px;
+  & .first-li{
+    margin-top: 0!important;
   }
 
-  .footer-ul{
-    height: 100%;
-    list-style: none;
-    justify-self: center;
 
-    li{
-      display: block;
-      margin-top: 24.5px;
-    }
-
-    & .first-li{
-      margin-top: 0!important;
-    }
-
-
-    &:last-child{
-      flex-wrap: nowrap!important;
-    }
+  &:last-child{
+    flex-wrap: nowrap!important;
   }
+}
 
-  .instagram-logo{
-    height: 30px!important;
-    width: 30px!important;
-    padding: 0!important;
-  }
+.instagram-logo{
+  height: 30px!important;
+  width: 30px!important;
+  padding: 0!important;
+}
 
-  .github-logo{
-    height: 30px!important;
-    width: 30px!important;
-    padding: 0!important;
-  }
+.github-logo{
+  height: 30px!important;
+  width: 30px!important;
+  padding: 0!important;
+}
 
-  a.text-mid{
-    font-weight: 500!important;
-    padding-left: 0!important;
-  }
+a.text-mid{
+  font-weight: 500!important;
+  padding-left: 0!important;
+}
 
-  .footer-ul a{
-    padding-top: 4px!important;
-    padding-bottom: 4px!important;
-    padding-left: 7px!important;
-    padding-right: 7px!important;
-    text-decoration: none!important;
-    color: #000000 !important;
-    box-shadow: inset 0 0 0 0 rgb(159,195,252);
-    transition: all .4s ease!important;
+.footer-ul a{
+  padding-top: 4px!important;
+  padding-bottom: 4px!important;
+  padding-left: 7px!important;
+  padding-right: 7px!important;
+  text-decoration: none!important;
+  color: #000000 !important;
+  box-shadow: inset 0 0 0 0 rgb(159,195,252);
+  transition: all .4s ease!important;
 
-    &:hover{
-      color: #000!important;
-      box-shadow: inset 200px 0 0 0 rgb(159,195,252);
-    }
-  }
-
-  .social-medias a{
-    text-decoration: none!important;
+  &:hover{
     color: #000!important;
-    transition: all .4s ease!important;
-    padding-top: 1px!important;
-    padding-bottom: 1px!important;
-    padding-left: 3px!important;
-    padding-right: 3px!important;
-    box-shadow: inset 0 0 0 0 rgb(159,195,252);
-
-
-    &:hover{
-      color: #000!important;
-      box-shadow: inset 200px 0 0 0 rgb(159,195,252);
-    }
+    box-shadow: inset 200px 0 0 0 rgb(159,195,252);
   }
+}
+
+.social-medias a{
+  text-decoration: none!important;
+  color: #000!important;
+  transition: all .4s ease!important;
+  padding-top: 1px!important;
+  padding-bottom: 1px!important;
+  padding-left: 3px!important;
+  padding-right: 3px!important;
+  box-shadow: inset 0 0 0 0 rgb(159,195,252);
+
+
+  &:hover{
+    color: #000!important;
+    box-shadow: inset 200px 0 0 0 rgb(159,195,252);
+  }
+}
+
+
+
 
 

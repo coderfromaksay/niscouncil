@@ -1,4 +1,112 @@
 @import url("https://fonts.googleapis.com/css2?family=Helvetica");
+#dauka1, #dauka2 {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#nadir {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#miras1, #miras2 {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#tulegenov-alikhan {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#serikov-alikhan {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#yernar {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#shamil {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#aser {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#ramazan {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#aldiyar {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#serik-alikhan1, #serik-alikhan2 {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#gibrat {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#serikov-adilkhan {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#nargiza {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#iliyas {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#anel {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#anzhela {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#sabina {
+  background-image: url("../img/nis.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .navbar-togler-icon {
   display: inline-block;
   width: 1.5em;
@@ -176,7 +284,6 @@ a {
 .avatarl {
   width: 180px;
   height: 220px;
-  background: #e5e5e5;
   border-radius: 24px;
   margin-bottom: 1rem;
 }
