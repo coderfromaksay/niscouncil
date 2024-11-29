@@ -14,14 +14,14 @@
   ],
   "builds": [
     {
-      "src": "homePage/public/**/*",
+      "src": "dist/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/homePage/public/$1"
+      "dest": "dist/$1"
     }
   ],
   "author": "Miras",
