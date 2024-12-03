@@ -130,6 +130,7 @@ a {
   background: #000;
   height: 2px;
   -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
 .header-ul a:hover::after {
@@ -143,6 +144,7 @@ a {
   color: white !important;
   font-size: 17px !important;
   -webkit-transition: all 0.2s ease !important;
+  -o-transition: all 0.2s ease !important;
   transition: all 0.2s ease !important;
 }
 .button-header:hover {
@@ -194,6 +196,7 @@ a {
   border-radius: 25px !important;
   text-align: center;
   -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 .btn-1:hover {
@@ -203,6 +206,7 @@ a {
 .btn-1:hover svg path {
   fill: #000000;
   -webkit-transition: 0.2s ease;
+  -o-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 .btn-1:active {
@@ -217,6 +221,7 @@ a {
   border-radius: 25px !important;
   text-align: center;
   -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 .btn-2:hover {
@@ -225,6 +230,7 @@ a {
 .btn-2:hover svg path {
   fill: #FFFFFF;
   -webkit-transition: 0.2s ease;
+  -o-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 .btn-2:active {
@@ -233,6 +239,7 @@ a {
 .btn-2:active svg path {
   fill: #7d7979;
   -webkit-transition: 0.2s ease;
+  -o-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 
@@ -240,6 +247,7 @@ a {
   width: 100%;
   height: 300px;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(23.4%, #CBD9F4), to(#FFF));
+  background: -o-linear-gradient(top, #CBD9F4 23.4%, #FFF 100%);
   background: linear-gradient(180deg, #CBD9F4 23.4%, #FFF 100%);
 }
 
@@ -296,6 +304,7 @@ a.text-mid {
   -webkit-box-shadow: inset 0 0 0 0 rgb(159, 195, 252);
   box-shadow: inset 0 0 0 0 rgb(159, 195, 252);
   -webkit-transition: all 0.4s ease !important;
+  -o-transition: all 0.4s ease !important;
   transition: all 0.4s ease !important;
 }
 .footer-ul a:hover {
@@ -308,6 +317,7 @@ a.text-mid {
   text-decoration: none !important;
   color: #000 !important;
   -webkit-transition: all 0.4s ease !important;
+  -o-transition: all 0.4s ease !important;
   transition: all 0.4s ease !important;
   padding-top: 1px !important;
   padding-bottom: 1px !important;

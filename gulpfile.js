@@ -48,7 +48,7 @@ gulp.task('sass', function () {
         message: '<%= error.message %>',
       })))
       .pipe(autoprefixer({
-        overrideBrowserslist: ['last 2 versions'],
+        overrideBrowserslist: ['last 20 versions'],
         cascade: false,
       }))
       .pipe(gulp.dest(paths.src.css))

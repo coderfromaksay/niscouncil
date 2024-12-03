@@ -194,6 +194,7 @@ a {
   background: #000;
   height: 2px;
   -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
 .header-ul a:hover::after {
@@ -207,6 +208,7 @@ a {
   color: white !important;
   font-size: 17px !important;
   -webkit-transition: all 0.2s ease !important;
+  -o-transition: all 0.2s ease !important;
   transition: all 0.2s ease !important;
 }
 .button-header:hover {
@@ -248,6 +250,7 @@ a {
   background: #000;
   height: 2px;
   -webkit-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
 .togler-text:hover::after {
@@ -346,15 +349,18 @@ a {
   height: 1px;
   background-color: #000;
   -webkit-transform: scaleX(0);
+  -ms-transform: scaleX(0);
   transform: scaleX(0);
   -webkit-transition: -webkit-transform 0.3s ease;
   transition: -webkit-transform 0.3s ease;
+  -o-transition: transform 0.3s ease;
   transition: transform 0.3s ease;
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
 .ministry-nav a.active::after {
   -webkit-transform: scaleX(1);
+  -ms-transform: scaleX(1);
   transform: scaleX(1);
 }
 
@@ -474,6 +480,7 @@ a.text-mid {
   -webkit-box-shadow: inset 0 0 0 0 rgb(159, 195, 252);
   box-shadow: inset 0 0 0 0 rgb(159, 195, 252);
   -webkit-transition: all 0.4s ease !important;
+  -o-transition: all 0.4s ease !important;
   transition: all 0.4s ease !important;
 }
 .footer-ul a:hover {
@@ -486,6 +493,7 @@ a.text-mid {
   text-decoration: none !important;
   color: #000 !important;
   -webkit-transition: all 0.4s ease !important;
+  -o-transition: all 0.4s ease !important;
   transition: all 0.4s ease !important;
   padding-top: 1px !important;
   padding-bottom: 1px !important;
