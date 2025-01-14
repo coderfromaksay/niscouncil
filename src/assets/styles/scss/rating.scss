@@ -220,6 +220,22 @@ thead{
   background-color: #dfe9f8 !important;
 }
 
+table{
+    border-radius: 20px;
+}
+.up-left-corner{
+    border-top-left-radius: 20px;
+}
+.up-right-corner{
+    border-top-right-radius: 20px;
+}
+.down-left-corner{
+    border-bottom-left-radius: 20px;
+}
+.down-right-corner{
+    border-bottom-right-radius: 20px;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 footer{
   width: 100%;
