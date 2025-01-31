@@ -14,7 +14,7 @@ const paths = {
     scss: 'src/assets/styles/scss/**/*.scss',
     css: 'src/assets/styles/css/',
     js: 'src/assets/scripts/**/*.js',
-    html: 'src/pages/**/*.html',
+    html: 'src/pages/**/*.*',
     img: 'src/img/**/*',
     video: 'src/video/**/*',
   },
@@ -81,13 +81,13 @@ gulp.task('browserSync', function () {
     },
     port: 3000,
     notify: false,
-    startPath: 'home.html',
+    startPath: 'home.php',
   });
   browserSync.watch('dist/**/*.*').on('change',browserSync.reload);
 });
 
 // WATCH task
-gulp.task('watchfiles', function () {
+gulp.task('watchFiles', function () {
   gulp.watch(paths.src.scss, gulp.series('sass'));
   gulp.watch(paths.src.js, gulp.series('js'));
   gulp.watch(paths.src.html, gulp.series('html'));
@@ -97,7 +97,7 @@ gulp.task('watchfiles', function () {
 gulp.task('default', gulp.series(
     gulp.parallel('clean:css', 'clean:js', 'clean:html'),
     gulp.parallel('sass', 'js', 'html'),
-    gulp.parallel('watchfiles', 'browserSync')
+    gulp.parallel('watchFiles')
 ));
 
 // Build task

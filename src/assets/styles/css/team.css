@@ -1,4 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Helvetica");
+body {
+  background: -webkit-gradient(linear, left top, right top, from(#e2e2e2), to(#c9d6ff));
+  background: -o-linear-gradient(left, #e2e2e2, #c9d6ff);
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  z-index: -2;
+}
+
 #dauka1, #dauka2 {
   background-image: url("../img/nis.png");
   background-repeat: no-repeat;
@@ -220,7 +227,7 @@ a {
   fill: #000000;
 }
 .button-header:active {
-  border-bottom-width: 1px;
+  border-bottom-width: 1px !important;
 }
 
 .navbar-togler-icon {
@@ -255,6 +262,10 @@ a {
 }
 .togler-text:hover::after {
   width: 100%;
+}
+
+.card {
+  background: none !important;
 }
 
 .title {
@@ -329,7 +340,7 @@ a {
   -ms-flex-pack: center;
   justify-content: center;
   gap: 2rem;
-  margin: 3rem 0;
+  margin-top: 3rem;
 }
 
 .ministry-nav a {
@@ -440,6 +451,7 @@ footer {
   height: 100%;
   list-style: none;
   justify-self: center;
+  padding-left: 0 !important;
 }
 .footer-ul li {
   display: block;

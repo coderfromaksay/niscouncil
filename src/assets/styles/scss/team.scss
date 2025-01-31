@@ -2,7 +2,10 @@
 //* {
 //  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 //}
-
+body{
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  z-index: -2;
+}
 #dauka1, #dauka2 {
   background-image: url("../img/nis.png");
   background-repeat: no-repeat;
@@ -227,7 +230,7 @@ a{
   }
 
   &:active{
-    border-bottom-width: 1px;
+    border-bottom-width: 1px!important;
   }
 }
 
@@ -278,6 +281,9 @@ main{
 
 @import url("https://fonts.googleapis.com/css2?family=Helvetica");
 
+.card{
+  background: none!important;
+}
 
 .title {
   width: 100%;
@@ -336,7 +342,7 @@ main{
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin: 3rem 0;
+  margin-top: 3rem;
 }
 
 .ministry-nav a {
@@ -432,6 +438,8 @@ footer{
   height: 100%;
   list-style: none;
   justify-self: center;
+
+  padding-left: 0!important;
 
   li{
     display: block;

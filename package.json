@@ -39,5 +39,9 @@
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
     "sass": "^1.55.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
   }
 }

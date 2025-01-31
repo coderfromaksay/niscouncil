@@ -1,3 +1,9 @@
+<?php
+session_start();
+$logged_in = isset($_SESSION['studentID']);
+
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -15,18 +21,26 @@
 <header class="header background-img">
    <div class="container">
       <nav class="d-flex justify-content-between align-items-center header-container">
-         <a href="home.html"><img src="/img/naizablacklogo.png" alt="logo" class="logo"></a>
+         <a href="home.php"><img src="img/naizablacklogo.png" alt="logo" class="logo"></a>
          <ul class="header-ul d-lg-flex d-none">
-            <li><a href="team.html" class="text text-center">Team</a></li>
+            <li><a action="team.php" href="team.php" class="text text-center">Team</a></li>
             <li><a href="https://nml-oral.vercel.app" class="text text-center">NML</a></li>
-            <li><a href="rating.html" class="text text-center">Rating</a></li>
-            <li><a href="home.html" class="text text-center">Home</a></li>
+            <li><a href="rating.php" class="text text-center">Rating</a></li>
+            <li><a href="home.php" class="text text-center">Home</a></li>
          </ul>
-         <a class="button-header btn px-4  d-lg-block d-none" href="https://youtu.be/oHg5SJYRHA0?si=xviLR1o_XwEhnRUD" target="_blank">Sign up
-            <svg  xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="none">
-               <path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 5.50001L0 2.20712L1.41421 0.792908L6.12132 5.50001L1.41421 10.2071L0 8.79291L3.29289 5.50001Z" fill="white"/>
-            </svg>
-         </a>
+         <?php if ($logged_in): ?>
+             <!-- Show Profile Icon if Logged In -->
+             <a class="btn px-3 d-lg-block d-none" href="profile.php">
+                 <i class="fa-solid fa-user" style="font-size: 20px;"></i><label class="mx-1 text">Profile</label>
+             </a>
+         <?php else: ?>
+             <!-- Show Sign In Button if NOT Logged In -->
+             <a class="button-header btn px-4  d-lg-block d-none" href="signIn.php">Sign in
+                         <svg  xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.29289 5.50001L0 2.20712L1.41421 0.792908L6.12132 5.50001L1.41421 10.2071L0 8.79291L3.29289 5.50001Z" fill="white"/>
+                         </svg>
+                      </a>
+         <?php endif; ?>
          <!--         <button class="button-header btn px-4  d-lg-none d-block navbar-toggler collapsed px-4 py-3" data-bs-toggle="collapse" data-bs-target="#header-info" aria-expanded="false" aria-controls="company-info">Navigation</button>-->
          <button type="button" class="navbar-togler navbar-toggler collapsed py-2 px-2 d-lg-none d-block" data-bs-toggle="collapse" data-bs-target="#header-info" aria-expanded="false" aria-controls="company-info"><span class="navbar-togler-icon"></span></button>
       </nav>
@@ -34,10 +48,15 @@
          <div class="container my-2">
             <div class="row">
                <div class="list-unstyled list-group text-decoration-none">
-                  <a href="team.html" class="text-center list-group-item list-group-item-action p-2">Team</a>
+                  <a href="team.php" class="text-center list-group-item list-group-item-action p-2">Team</a>
                   <a href="https://nml-oral.vercel.app" class=" text-center list-group-item list-group-item-action p-2">NML</a>
-                  <a href="rating.html" class=" text-center list-group-item list-group-item-action p-2">Rating</a>
-                  <a href="home.html" class=" text-center list-group-item list-group-item-action p-2">Home</a>
+                  <a href="rating.php" class=" text-center list-group-item list-group-item-action p-2">Rating</a>
+                  <a href="home.php" class=" text-center list-group-item list-group-item-action p-2">Home</a>
+                    <?php if ($logged_in): ?>
+                      <a href="profile.php" class=" text-center list-group-item list-group-item-action p-2">Profile</a>
+                    <?php else: ?>
+                      <a href="signIn.php" class=" text-center list-group-item list-group-item-action p-2">Sign In</a>
+                    <?php endif; ?>
                </div>
             </div>
          </div>
@@ -65,7 +84,7 @@
    </div>
    <div class="d-flex justify-content-center my-lg-2 my-0 row">
       <div class="col-lg-4 col-md-6 col-12 justify-content-center">
-         <div class="card border-0 text-center my-2 my-lg-0">
+         <div class="card border-0 text-center my-4 my-lg-0">
             <div class="avatarl shadow align-self-center" id="nadir"></div>
             <div class="member-infol">
                <div class="member-titlel">Vice president</div>
@@ -93,25 +112,27 @@
       </div>
    </div>
 
-   <nav class="ministry-nav d-flex justify-content-between align-items-center">
-      <a href="#" class="active d-none d-lg-block" data-ministry="events">M. Events</a>
-      <a href="#" class="d-none d-lg-block" data-ministry="edu">M. Edu</a>
-      <a href="#" class="d-none d-lg-block" data-ministry="digit">M. Digit</a>
-      <a href="#" class="d-none d-lg-block" data-ministry="comm">M. Comm</a>
-      <a href="#" class="d-none d-lg-block" data-ministry="media">M. Media</a>
-      <a href="#" class="d-none d-lg-block" data-ministry="senate">Senate</a>
-      <button type="button" class="navbar-togler navbar-toggler collapsed px-2 d-lg-none d-flex fs-4" data-bs-toggle="collapse" data-bs-target="#ministry-info" aria-expanded="false" aria-controls="company-info"><span class="navbar-togler-icon py-3 mx-3"></span><h1 class="togler-text">Ministries</h1></button>
-   </nav>
-   <div class="collapse d-lg-none" style="" id="ministry-info">
-      <div class="container my-2">
-         <div class="row">
-            <div class="list-unstyled list-group text-decoration-none ministry-nav-collapsed">
-               <a href="#" class=" text-center list-group-item list-group-item-action p-2 active"  data-ministry="events">Ministry of Events</a>
-               <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="edu">Ministry of Education</a>
-               <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="digit">Ministry of Digitalization</a>
-               <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="comm">Ministry of Communications</a>
-               <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="media">Ministry of Media</a>
-               <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="senate">Senate</a>
+   <div class="mb-4">
+      <nav class="ministry-nav d-flex justify-content-between align-items-center">
+         <a href="#" class="active d-none d-lg-block" data-ministry="events">M. Events</a>
+         <a href="#" class="d-none d-lg-block" data-ministry="edu">M. Edu</a>
+         <a href="#" class="d-none d-lg-block" data-ministry="digit">M. Digit</a>
+         <a href="#" class="d-none d-lg-block" data-ministry="comm">M. Comm</a>
+         <a href="#" class="d-none d-lg-block" data-ministry="media">M. Media</a>
+         <a href="#" class="d-none d-lg-block" data-ministry="senate">Senate</a>
+         <button type="button" class="navbar-togler navbar-toggler collapsed px-2 d-lg-none d-flex fs-4" data-bs-toggle="collapse" data-bs-target="#ministry-info" aria-expanded="false" aria-controls="company-info"><span class="navbar-togler-icon py-3 mx-3"></span><h1 class="togler-text">Ministries</h1></button>
+      </nav>
+      <div class="collapse d-lg-none mb-4" style="" id="ministry-info">
+         <div class="container mb-4">
+            <div class="row">
+               <div class="list-unstyled list-group text-decoration-none ministry-nav-collapsed">
+                  <a href="#" class=" text-center list-group-item list-group-item-action p-2 active"  data-ministry="events">Ministry of Events</a>
+                  <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="edu">Ministry of Education</a>
+                  <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="digit">Ministry of Digitalization</a>
+                  <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="comm">Ministry of Communications</a>
+                  <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="media">Ministry of Media</a>
+                  <a href="#" class=" text-center list-group-item list-group-item-action p-2"  data-ministry="senate">Senate</a>
+               </div>
             </div>
          </div>
       </div>
@@ -172,7 +193,7 @@
       <h2>Ministry of Digitalization</h2>
       <div class="d-flex justify-content-around align-items-center row my-4">
          <div class="col-lg-3 col-8 d-flex gap-3 align-items-center shadow p-3 rounded-4 my-4">
-            <div class="member-avatar" id="ramazan"><img src="/img/nis.png" alt=""></div>
+            <div class="member-avatar" id="ramazan"><img alt=""></div>
             <div class="member-info">
                <div class="member-title">Minister</div>
                <div class="member-name">Kazbekov Ramazan</div>
@@ -310,11 +331,11 @@
             <!--            <div class="col-lg-2"></div>-->
             <div class="col-sm-4 text-center text-md-start">
                <div class="row social-medias py-3 d-inline-block w-100" id="social-medias">
-                  <img src="/img/instagram.png" alt="instagram_logo" class="instagram-logo align-center">
+                  <img src="img/instagram.png" alt="instagram_logo" class="instagram-logo align-center">
                   <a href="https://www.instagram.com/nisura_council?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text text-mid align-bottom text-center">@naiza_council</a>
                </div>
                <div class="row social-medias py-3 d-inline-block w-100">
-                  <img src="/img/github.png" alt=github_logo" class="github-logo align-center">
+                  <img src="img/github.png" alt=github_logo" class="github-logo align-center">
                   <a href="https://github.com/coderfromaksay/niscouncil" target="_blank" class="text text-mid align-bottom text-center">niscouncil</a>
                </div>
             </div>
@@ -332,5 +353,6 @@
 <script src="js/pagesJs/team.js"></script>
 <script src="frameworks/bootstrap.bundle.min.js"></script>
 <!-- <script src="frameworks/bootstrap/js/bootstrap.min.js"></script> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </body>
 </html>

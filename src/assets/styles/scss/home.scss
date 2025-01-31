@@ -178,7 +178,7 @@
     }
 
     &:active{
-      border-bottom-width: 1px;
+      border-bottom-width: 1px!important;
     }
   }
 
@@ -217,7 +217,7 @@
     background: #000000;
     color: #ffffff!important;
     border-style: none;
-    padding: 10px 23px!important;
+    padding: 10px 23px 10px 23px!important;
     border-radius: 25px!important;
     text-align: center;
 
@@ -294,6 +294,8 @@
     list-style: none;
     justify-self: center;
 
+    padding-left: 0!important;
+
     li{
       display: block;
       margin-top: 24.5px;
@@ -322,7 +324,7 @@
     padding: 0!important;
   }
 
-  a.text-mid{
+  footer a.text-mid{
     font-weight: 500!important;
     padding-left: 0!important;
   }

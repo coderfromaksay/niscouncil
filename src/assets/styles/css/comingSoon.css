@@ -137,6 +137,7 @@ footer {
   height: 100%;
   list-style: none;
   justify-self: center;
+  padding-left: 0 !important;
 }
 .footer-ul li {
   display: block;
