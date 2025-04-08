@@ -463,3 +463,12 @@ a.text-mid {
   -webkit-box-shadow: inset 200px 0 0 0 rgb(159, 195, 252);
   box-shadow: inset 200px 0 0 0 rgb(159, 195, 252);
 }
+
+.cl-1 {
+  width: 50%;
+}
+@media (max-width: 777px) {
+  .cl-1 {
+    width: 100%;
+  }
+}

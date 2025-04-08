@@ -477,4 +477,11 @@ a.text-mid{
 }
 
 
+.cl-1{
+  width: 50%;
+
+  @media (max-width: 777px) {
+    width: 100%;
+  }
+}
 

@@ -1,36 +1,40 @@
 <?php
-
 session_start();
-
-$host = "localhost"; // Change if needed
-$username = "root"; // Change if needed
-$password = ""; // Change if needed
+$logged_in = isset($_SESSION['studentID']);
+$host = "localhost";
+$username = "root";
+$password = "";
 $dbname = "SCSite";
 
-$logged_in = isset($_SESSION['studentID']);
-
-// Connect to database using MySQLi
+// Connect to database
 $conn = new mysqli($host, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_error) {
-    die("Ошибка подключения к БД: " . $conn->connect_error);
+    die("Database connection failed: " . $conn->connect_error);
 }
 
-// SQL query to fetch data from Shanyraqs table
-$query = "SELECT shanyraqID, shanyraqName, shanyraqPointsFirstHalf, shanyraqPointsSecondHalf FROM Shanyraqs";
-$result = $conn->query($query);
+// Fetch Shanyraq Ratings
+$shanyraq_query = "
+    SELECT sh.shanyraqName,
+           sh.shanyraqPointsFirstHalf AS first_half_points,
+           sh.shanyraqPointsSecondHalf AS second_half_points
+    FROM Shanyraqs sh
+    LEFT JOIN Students s ON sh.shanyraqID = s.shanyraqID
+    LEFT JOIN StudentsRating sr ON s.studentID = sr.studentID
+    GROUP BY sh.shanyraqName
+";
+$shanyraq_result = $conn->query($shanyraq_query);
 
-$shanyraqs = [];
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $shanyraqs[] = $row;
-    }
-}
-
-// Close connection
-$conn->close();
+// Fetch Students' Ratings
+$students_query = "
+    SELECT s.name, s.surname, s.grade AS class,
+           COALESCE(sr.studentPointsOverall, 0) AS total_points,
+           sh.shanyraqName
+    FROM Students s
+    LEFT JOIN StudentsRating sr ON s.studentID = sr.studentID
+    LEFT JOIN Shanyraqs sh ON s.shanyraqID = sh.shanyraqID
+    ORDER BY sr.studentPointsOverall DESC
+";
+$students_result = $conn->query($students_query);
 ?>
 
 <!DOCTYPE html>
@@ -58,11 +62,11 @@ $conn->close();
             <li><a href="home.php" class="text text-center">Home</a></li>
          </ul>
          <?php if ($logged_in): ?>
-             <!-- Show Profile Icon if Logged In -->
-             <a class="btn px-3 d-lg-block d-none" href="profile.php">
-                 <i class="fa-solid fa-user" style="font-size: 20px;"></i><label class="mx-1 text">Profile</label>
-             </a>
-         <?php else: ?>
+                      <!-- Show Profile Icon if Logged In -->
+                      <a class=" btn px-3 d-lg-block d-none" href="profile.php">
+                          <i class="fa-solid fa-user" style="font-size: 20px;"></i><label class="mx-1 text">Profile</label>
+                      </a>
+                  <?php else: ?>
              <!-- Show Sign In Button if NOT Logged In -->
              <a class="button-header btn px-4  d-lg-block d-none" href="signIn.php">Sign in
                          <svg  xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="none">
@@ -115,14 +119,14 @@ $conn->close();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($shanyraqs as $shanyraq): ?>
-                    <tr>
-                        <td class="text-center"> <?= htmlspecialchars($shanyraq['shanyraqName']) ?> </td>
-                        <td class="text-center d-sm-table-cell d-none"><?= $shanyraq['shanyraqPointsFirstHalf'] ?></td>
-                        <td class="text-center d-sm-table-cell d-none"><?= $shanyraq['shanyraqPointsSecondHalf'] ?></td>
-                        <td class="text-center">-</td>
-                    </tr>
-                <?php endforeach; ?>
+                <?php while ($shanyraq = $shanyraq_result->fetch_assoc()): ?>
+                                <tr>
+                                    <td class="text-center"><?= htmlspecialchars($shanyraq['shanyraqName']) ?></td>
+                                    <td class="text-center d-sm-table-cell d-none"><?= $shanyraq['first_half_points'] ?></td>
+                                    <td class="text-center d-sm-table-cell d-none"><?= $shanyraq['second_half_points'] ?></td>
+                                    <td class="text-center">-</td>
+                                </tr>
+                            <?php endwhile; ?>
             </tbody>
         </table>
     </section>
@@ -131,13 +135,23 @@ $conn->close();
         <h1 class="text-mid text-center ">Rating of Students</h1>
         <table class="table shadow-lg table-striped">
             <thead>
-            <tr>
-                <th class="text-center align-content-center up-left-corner">Student</th>
-                <th class="text-center d-sm-table-cell d-none">Shanyraq</th>
-                <th class="text-center d-sm-table-cell d-none">Class</th>
-                <th class="text-center up-right-corner">Points</th>
-            </tr>
+                <tr>
+                    <th class="text-center align-content-center up-left-corner">Student</th>
+                    <th class="text-center d-sm-table-cell d-none">Shanyraq</th>
+                    <th class="text-center d-sm-table-cell d-none">Class</th>
+                    <th class="text-center up-right-corner">Points</th>
+                </tr>
             </thead>
+            <tbody>
+                <?php while ($student = $students_result->fetch_assoc()): ?>
+                                <tr>
+                                    <td class="text-center"><?= htmlspecialchars($student['name'] . ' ' . $student['surname']) ?></td>
+                                    <td class="text-center d-sm-table-cell d-none"><?= htmlspecialchars($student['shanyraqName'] ?? 'Not Assigned') ?></td>
+                                    <td class="text-center d-sm-table-cell d-none"><?= htmlspecialchars($student['class']) ?></td>
+                                    <td class="text-center"><?= $student['total_points'] ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+            </tbody>
         </table>
     </section>
 </main>

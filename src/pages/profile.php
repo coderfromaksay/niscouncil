@@ -32,7 +32,7 @@ if ($logged_in) {
 
     // Fetch user details
     $query = "
-        SELECT s.name, s.surname, s.email, s.phoneNumber, s.grade, s.shanyraqID, sh.shanyraqName
+        SELECT s.name, s.surname, s.email, s.phoneNumber, s.grade, s.shanyraqID, sh.shanyraqName, s.adminAccess
         FROM Students s
         LEFT JOIN Shanyraqs sh ON s.shanyraqID = sh.shanyraqID
         WHERE s.studentID = ?
@@ -42,6 +42,8 @@ if ($logged_in) {
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
+    $is_admin = $user['adminAccess'] == 1;
+    $_SESSION['adminAccess'] = $is_admin;
     $stmt->close();
 
     if (!$user) {
@@ -178,16 +180,19 @@ $conn->close();
         <div class="profile-container">
             <h2>Welcome!</h2>
             <div class="profile-img"></div>
+
             <!-- Success / Error Messages -->
-            <?php if ($update_success): ?>
-                <p style="color:green;"><?= $update_success ?></p>
-            <?php endif; ?>
-            <?php if ($error_message): ?>
-                <p style="color:red;"><?= $error_message ?></p>
-            <?php endif; ?>
+                        <?php if ($update_success): ?>
+                            <p style="color:green;"><?= $update_success ?></p>
+                        <?php endif; ?>
+                        <?php if ($error_message): ?>
+                            <p style="color:red;"><?= $error_message ?></p>
+                        <?php endif; ?>
+
+
 
             <!-- View Mode -->
-            <div id="view-mode" class="profile-info p-3">
+            <div id="view-mode" class="profile-info my-3">
 
                 <p class="text-mid">Name: <?= htmlspecialchars($user['name']) ?></p>
                 <p class="text-mid">Surname: <?= htmlspecialchars($user['surname']) ?></p>
@@ -217,7 +222,7 @@ $conn->close();
                 <input type="text" name="grade" value="<?= htmlspecialchars($user['grade']) ?>" required></p>
 
                 <p><strong>Shanyraq:</strong>
-                <select class="form-select shadow" id="shanyraq" name="shanyraqID" required>
+                <select class="form-select shadow" id="shanyraq" name="shanyraqID" required style="max-width: 300px;">
                     <option value="" disabled>Choose Shanyraq</option>
                     <option value="1" <?= $user['shanyraqID'] == 1 ? 'selected' : '' ?>>Aqjaiyq</option>
                     <option value="2" <?= $user['shanyraqID'] == 2 ? 'selected' : '' ?>>Alatau</option>
@@ -241,14 +246,133 @@ $conn->close();
             </form>
 
             <!-- Logout Button -->
-            <form action="profile.php" method="POST">
+            <form action="profile.php" method="POST" class="mb-3">
                 <button type="submit" name="logout" class="btn btn-danger logout-btn">Log Out</button>
             </form>
         </div>
+
+    <?php if ($is_admin): ?>
+        <button class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#studentModal">Ввести баллы ученику</button>
+        <button class="btn btn-secondary my-1" data-bs-toggle="modal" data-bs-target="#shanyraqModal">Ввести баллы шаныраку</button>
+        <!-- Success / Error Messages -->
+        <?php if (isset($_SESSION['message'])): ?>
+            <p style="color:green;"><?= $_SESSION['message'] ?></p>
+            <?php unset($_SESSION['message']); // Очищаем сообщение после отображения ?>
+        <?php endif; ?>
+    <?php endif; ?>
     <?php else: ?>
         <h1 style="margin-top: 20%; font-size: 60px!important" class="text-center text-lighter">You are not logged in.</h1>
         <p  class="text-muted text-center">Press here to <a href="signIn.php">Sign In</a></p>
     <?php endif; ?>
+
+
+    <!-- Модальное окно для ввода баллов ученику -->
+    <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Форма отправки данных в скрипт process_points.php -->
+          <form action="process_points.php" method="POST" id="studentPointsForm">
+            <div class="modal-header">
+              <h5 class="modal-title" id="studentModalLabel">Ввести баллы ученику</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Поисковое поле -->
+              <div class="mb-3">
+                <label for="student-search" class="form-label">Поиск ученика</label>
+                <input type="text" class="form-control" id="student-search" name="student-search" placeholder="Введите имя, фамилию или класс...">
+              </div>
+              <!-- Контейнер для результатов поиска -->
+              <div class="mb-3" id="student-results">
+                <!-- Здесь динамически будут появляться результаты поиска -->
+              </div>
+              <!-- Скрытое поле для хранения выбранного studentID -->
+              <input type="hidden" name="studentID" id="selected-student-id">
+
+              <!-- Поле для ввода баллов -->
+              <div class="mb-3">
+                <label for="studentPoints" class="form-label">Баллы</label>
+                <input type="number" class="form-control" id="studentPoints" name="points" required>
+              </div>
+
+              <!-- Выбор периода -->
+              <div class="mb-3">
+                <label class="form-label">Выберите период</label>
+                <select class="form-select" name="period" required>
+                  <option value="" disabled selected>Выберите период</option>
+                  <option value="first_half">First Half of the Year</option>
+                  <option value="second_half">Second Half of the Year</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+              <button type="submit" class="btn btn-primary">Отправить баллы</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно для ввода баллов шаныраку -->
+    <div class="modal fade" id="shanyraqModal" tabindex="-1" aria-labelledby="shanyraqModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Форма отправки данных в скрипт process_shanyraq_points.php -->
+          <form action="process_shanyraq_points.php" method="POST" id="shanyraqPointsForm">
+            <div class="modal-header">
+              <h5 class="modal-title" id="shanyraqModalLabel">Ввести баллы шаныраку</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Выбор шанырака -->
+              <div class="mb-3">
+                <label for="shanyraqSelect" class="form-label">Выберите шанырак</label>
+                <select class="form-select" id="shanyraqSelect" name="shanyraqID" required>
+                  <option value="" disabled selected>Выберите шанырак</option>
+                  <option value="1">Aqjaiyq</option>
+                  <option value="2">Alatau</option>
+                  <option value="3">Alash</option>
+                  <option value="4">Arys</option>
+                  <option value="5">Atameken</option>
+                  <option value="6">Baiqonyr</option>
+                  <option value="7">Jetisu</option>
+                  <option value="8">Kaspi</option>
+                  <option value="9">Oqjetpes</option>
+                  <option value="10">Orda</option>
+                  <option value="11">Samuryq</option>
+                  <option value="12">Saryarqa</option>
+                  <option value="13">Tulpar</option>
+                  <option value="14">Han-taniri</option>
+                  <option value="15">Shalqar</option>
+                </select>
+              </div>
+              <!-- Поле для ввода баллов -->
+              <div class="mb-3">
+                <label for="shanyraqPoints" class="form-label">Баллы</label>
+                <input type="number" class="form-control" id="shanyraqPoints" name="points" required>
+              </div>
+              <!-- Выбор периода -->
+              <div class="mb-3">
+                <label class="form-label">Выберите период</label>
+                <select class="form-select" name="period" required>
+                  <option value="" disabled selected>Выберите период</option>
+                  <option value="first_half">First Half of the Year</option>
+                  <option value="second_half">Second Half of the Year</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+              <button type="submit" class="btn btn-primary">Отправить баллы</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
 </main>
 
 
@@ -295,6 +419,7 @@ $conn->close();
 <!-- ////////////////// -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin=""></script>
 <script src="frameworks/bootstrap.bundle.min.js"></script>
+<script src="js/pagesJs/search_student.js"></script>
 <!-- <script src="frameworks/bootstrap/js/bootstrap.min.js"></script> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </body>

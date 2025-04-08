@@ -147,12 +147,12 @@ a{
 
 .profile-img{
   width: 300px!important;
-  height:25rem;
+  height: 25rem;
   background-image: url("../img/profile_img.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  
+
   @media (max-width: 767px) {
     margin: auto;
   }

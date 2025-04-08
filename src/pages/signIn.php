@@ -1,70 +1,45 @@
 <?php
 session_start();
-$host = "localhost"; // Change if needed
-$username = "root"; // Change if needed
-$password = ""; // Change if needed
-$dbname = "SCSite";
+require 'config.php'; // Connect to database
 
-$logged_in = isset($_SESSION['studentID']);
-
-// Create a connection
-$conn = new mysqli($host, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Validate inputs
     if (empty($email) || empty($password)) {
-        $_SESSION['error'] = "All fields are required!";
+        $_SESSION['error'] = "❌ All fields are required!";
         header("Location: signIn.php");
         exit();
     }
 
-    // Prepare and execute SQL query
-    $stmt = $conn->prepare("SELECT studentID, name, password FROM Students WHERE email = ?");
+    // Check if email exists
+    $stmt = $conn->prepare("SELECT studentID, password FROM Students WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
-    // Check if user exists
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($studentID, $name, $hashed_password);
-        $stmt->fetch();
-
-        // Verify password
-        if (password_verify($password, $hashed_password)) {
-            // Set session variables for authenticated user
-            $_SESSION['studentID'] = $studentID;
-            $_SESSION['name'] = $name;
-
-            // Redirect to home or profile page
-            header("Location: profile.php");
-            exit();
-        } else {
-            $_SESSION['error'] = "Invalid email or password!";
-            header("Location: signIn.php");
-            exit();
-        }
-    } else {
-        $_SESSION['error'] = "User not found!";
+    if ($stmt->num_rows == 0) {
+        $_SESSION['error'] = "❌ Incorrect email or password!";
         header("Location: signIn.php");
         exit();
     }
 
-    $stmt->close();
+    // Verify password
+    $stmt->bind_result($studentID, $hashedPassword);
+    $stmt->fetch();
+
+    if (!password_verify($password, $hashedPassword)) {
+        $_SESSION['error'] = "❌ Incorrect email or password!";
+        header("Location: signIn.php");
+        exit();
+    }
+
+    // If login is successful
+    $_SESSION['studentID'] = $studentID;
+    header("Location: profile.php"); // Redirect to profile/home page
+    exit();
 }
-
-$conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -133,6 +108,16 @@ $conn->close();
       <h2 class="text-center">Welcome back!</h2>
       <p class="text-center mb-4 text-muted">Please, fill in all fields.</p>
 
+     <!-- Show Error Message -->
+             <?php if (isset($_SESSION['error'])): ?>
+                 <div class="alert alert-danger text-center">
+                     <?php
+                     echo $_SESSION['error'];
+                     unset($_SESSION['error']); // Clear error after displaying
+                     ?>
+                 </div>
+             <?php endif; ?>
+
       <div class="mb-3">
         <div class="input-container my-5 col-md-6" style="margin: auto;">
           <input type="email" id="signin-email-animated-input" name="email" placeholder="" required autocomplete="off">
@@ -140,16 +125,18 @@ $conn->close();
           <div class="input-bg"></div>
         </div>
 
-        <div class="input-container my-5 col-md-6" style="margin: auto; position: relative;">
-          <input type="password" id="signin-password-animated-input" name="password" placeholder="" required autocomplete="off">
-          <label for="signin-password-animated-input">Password</label>
-          <div class="input-bg"></div>
-          <button type="button" class="toggle-password" onclick="togglePasswordVisibility('signin-password-animated-input', 'eye-icon-1')"
-                  style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
-            <i id="eye-icon-1" class="fa-solid fa-eye-slash"></i>
-          </button>
+        <div class=" my-5">
+            <div class="input-container col-md-6" style="margin: auto; position: relative;">
+              <input type="password" id="signin-password-animated-input" name="password" placeholder="" required autocomplete="off">
+              <label for="signin-password-animated-input">Password</label>
+              <div class="input-bg"></div>
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('signin-password-animated-input', 'eye-icon-1')"
+                      style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                <i id="eye-icon-1" class="fa-solid fa-eye-slash"></i>
+              </button>
+            </div>
+        <p class="text-muted text-center mt-2"><a href="forgotPassword.php">Forgot your password?</a></p>
         </div>
-
       </div>
 
       <div class="text-center">
